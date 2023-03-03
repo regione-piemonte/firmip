@@ -1,0 +1,113 @@
+<div class="my-5 w-auto">
+  <fieldset class="d-flex flex-column justify-content-end align-items-end" aria-label="Opzioni tabella">
+    <legend class="w-100 d-block text-right collapse-header">
+      <span data-toggle="collapse" class="text-right border-0 small p-0" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
+    aria-controls="collapseExample">Opzioni Tabella</span>
+    </legend>
+
+    <div class="row" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+      <div
+        *ngFor="let h of tableData.headers; let i =  index;"
+        [draggable]="h.isSelected"
+        (dragstart)="onDragStart(i)"
+        (dragover)="onDragOver(i)"
+        (dragend)="onDragEnd()"
+        [ngClass]=" {'dragged' : dragTrace.src === i, 'dragged-over' : dragTrace.dest === i}"
+        class="form-check form-check-inline text-small">
+        <input type="checkbox" id="input{{h.label}}" (click)="toggleHeader(i)" [checked]="h.isChecked"/>
+        <label class="pl-4" for="input{{h.label}}">
+          <small>{{h.label}}</small>
+        </label>
+      </div>
+    </div>
+  </fieldset>
+
+
+  <table class="w-table w-100 mt-4 small">
+    <thead>
+      <tr>
+        <ng-container *ngFor="let h of tableData.headers">
+          <ng-container *ngIf="h.isChecked">
+            <th scope="col" style="background:#F0F0F0;" class="p-2 {{h.label|lowercase}}" [appSort]="tableData.data" data-order="desc" keyColumn="{{h.key}}">
+            {{h.label}}
+            <svg class="icon icon-sm align-top icon-secondary">
+              <use [attr.href]="'./assets/svg/sprite.svg#it-arrow-down-triangle'"/>
+            </svg>
+          </th>
+          </ng-container>
+        </ng-container>
+        <th scope="col" style="background:#F0F0F0;" class="p-2 ">
+        <span class="sr-only">operazioni</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="tableData.data.length > 0">
+        <tr class="border-bottom" *ngFor="let row of tableData.data  | slice: (page-1) * pageSize : page * pageSize">
+          <ng-container *ngFor="let h of tableData.headers">
+            <ng-container *ngIf="h.isChecked">
+
+              <ng-container [ngSwitch]="h.type">
+                <td  *ngSwitchCase="''" class="px-2 py-3">
+                  {{row[h.key]}}
+                </td>
+
+                <td  *ngSwitchCase="'stringUpper'" class="px-2 py-3">
+                  {{row[h.key] | uppercase}}
+                </td>
+
+                <td  *ngSwitchCase="'date'" class="px-2 py-3">
+                  {{row[h.key] | date: h.format     }}
+                </td>
+                <td  *ngSwitchCase="'comune'" class="px-2 py-3">
+                  {{row.comune?.nome}}
+                </td>
+                <!-- Gestire caso di routerlink -->
+                <td  *ngSwitchCase="'link'" class="px-2 py-3">
+                  <a title="Visualizza l'iniziativa '{{row[h.key]}}'" routerLink="{{h.baselink}}/{{row[h.keylink]}}">
+                    {{row[h.key]}}
+                  </a>
+                </td>
+
+              </ng-container>
+            </ng-container>
+          </ng-container>
+
+          <!-- comandi -->
+          <td class="align-middle">
+            <div class="d-flex justify-content-end align-content-center px-2">
+              <ng-container *ngFor="let c of tableData.cmd">
+                <button  placement="top" ngbTooltip="{{c.tooltip}}" data-placement="top" tooltipClass="w-table__tooltip" title="{{c.tooltip}}" (click)="emitCmd(row,c.cmd)"
+                         class="w-table__btn-icon btn btn-icon" type="button" aria-haspopup="true">
+                  <svg class="icon {{'icon-' + c.theme}}">
+                    <use [attr.href]="'./assets/svg/sprite.svg#' + c.icon"/>
+                  </svg>
+                  <span class="sr-only">{{c.tooltip}}</span>
+                </button>
+              </ng-container>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+      
+    </tbody>
+  </table>
+  <p class="text-muted text-right small mt-1">{{tableData.data.length}} risultati</p>
+</div>
+<ng-container *ngIf="tableData.data.length <= 0">
+  <div class="alert alert-info mt-2 mb-5 d-inline-block" role="alert" >
+    Non sono presenti dati all'interno della tabella.
+  </div>
+</ng-container>
+
+<!-- paginazione -->
+<ngb-pagination *ngIf="tableData.data.length > 0 && tableData.data.length > pageSize"
+  [(page)]=page
+  [maxSize]="15"
+  [pageSize]=pageSize
+  [collectionSize]="tableData.data.length"
+  class="w-table__pagination d-flex justify-content-center my-5 pagination pagination-wrapper" aria-label="Navigazione della tabella">
+  <ng-template ngbPaginationPrevious>Precedente<span class="sr-only">Pagina precedente</span></ng-template>
+  <ng-template ngbPaginationNext>Successiva<span class="sr-only">Pagina successiva</span></ng-template>
+  <ng-template ngbPaginationEllipsis>...</ng-template>
+  <ng-template ngbPaginationNumber let-page>{{page}}</ng-template>
+</ngb-pagination>

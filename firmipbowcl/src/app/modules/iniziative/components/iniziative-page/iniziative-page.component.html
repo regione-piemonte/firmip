@@ -1,0 +1,22 @@
+
+<h1 class="display-2">Iniziative in corso</h1>
+<p>Di seguito l’elenco delle iniziative in corso.<br>
+Per ricercare un’iniziativa in base al titolo, digitare almeno tre lettere nel campo “Titolo”.</p>
+<div class="form-group col-12 col-md-4 mt-5">
+  <label for="titleInput">Titolo</label>
+  <label for="titleInput" class="sr-only">Ricerca iniziativa per titolo</label>
+  <input type="text" #filtroIniziative   class="form-control" id="titleInput"  (input)="filtraIniziative(filtroIniziative.value)"  >
+  <small id="titleInputDescription" class="form-text text-muted">Digita almeno 3 caratteri</small>
+</div>
+
+<firmipbo-iniziative-tabella [iniziative]="elencoIniziativeFiltrato" (cmdEvent)="gestisciComando($event)">
+</firmipbo-iniziative-tabella>
+
+<div class="d-flex justify-content-end">
+  <button (click)="aggiungiIniziativa();" class="btn btn-primary btn-sm btn-icon rounded-0" >
+    <span>Nuova iniziativa</span>
+    <svg class="icon icon-white icon ml-2" aria-hidden="true">
+      <use href='./assets/svg/sprite.svg#it-plus'></use>
+    </svg>
+  </button>
+</div>

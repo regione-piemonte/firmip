@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<project name="moonsrv-buildCXFClientLibs" basedir=".." >
+	<path id="axis1.classpath">
+			<fileset dir ="lib">
+				<include name="*.jar" />
+			</fileset>
+	</path>
+	<path id="axis2.classpath">
+			<fileset dir ="lib">
+				<include name="*.jar" />
+			</fileset>
+			<fileset dir ="conf/codgenlib">
+				<include name="*.jar" />
+			</fileset>
+	</path>
+	
+	<target name="iride.generate.client.axis">
+			<delete includeemptydirs="true" failonerror="false">
+				<fileset dir="build/codgen" includes="**/*.java" />
+			</delete>
+
+			<java classname="org.apache.axis.wsdl.WSDL2Java" fork="true">
+				<arg value="-p" />
+				<arg value="it.csi.firmip.iride.base" />
+				<arg value="-o" />
+				<arg value="build/codgen/src" />
+				<arg value="http://tst-wfexp-vip01.csi.it/pep_wsfad_policy/services/PolicyEnforcerBase?wsdl" />
+				<classpath>
+					<path refid="axis1.classpath" />
+				</classpath>
+			</java>
+		
+			<mkdir dir="build/codgen/classes" />
+			<javac srcdir="build/codgen/src" destdir="build/codgen/classes" optimize="true" debug="true" debuglevel="vars,lines,source" compiler="modern" encoding="windows-1252" fork="false">
+				<classpath refid="axis1.classpath" />
+			</javac>
+			<mkdir dir="build/codgen/archives" />
+			<jar jarfile="build/codgen/archives/iride-base-axis.jar" basedir="build/codgen/classes" includes="**/*.*" />
+			<copy file="build/codgen/archives/iride-base-axis.jar" todir="conf/lib-tmp" />
+			<copy file="build/codgen/archives/iride-base-axis.jar" todir="lib" />
+		</target>
+</project>

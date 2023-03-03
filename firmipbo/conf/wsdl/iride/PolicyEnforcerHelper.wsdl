@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" xmlns:intf="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="urn:PolicyEnforcerHelper" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><wsdl:types><schema targetNamespace="urn:PolicyEnforcerHelper" xmlns="http://www.w3.org/2001/XMLSchema"><import namespace="http://schemas.xmlsoap.org/soap/encoding/"/><complexType name="CSIException"><sequence><element name="nestedExcMsg" nillable="true" type="xsd:string"/><element name="nestedExcClassName" nillable="true" type="xsd:string"/><element name="stackTraceMessage" nillable="true" type="xsd:string"/></sequence></complexType><complexType name="UserException"><complexContent><extension base="tns1:CSIException"><sequence/></extension></complexContent></complexType><complexType name="BadRuoloException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="NoSuchApplicationException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="IdentitaNonAutenticaException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="Application"><sequence><element name="id" nillable="true" type="xsd:string"/></sequence></complexType><complexType name="Actor"><sequence><element name="appId" nillable="true" type="tns1:Application"/><element name="id" nillable="true" type="xsd:string"/></sequence></complexType><complexType name="UnrecoverableException"><complexContent><extension base="tns1:CSIException"><sequence/></extension></complexContent></complexType><complexType name="NoSuchUseCaseException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="SystemException"><complexContent><extension base="tns1:CSIException"><sequence/></extension></complexContent></complexType><complexType abstract="true" name="CertException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="CertOutsideValidityException"><complexContent><extension base="tns1:CertException"><sequence/></extension></complexContent></complexType><complexType name="InternalException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="UseCase"><sequence><element name="appId" nillable="true" type="tns1:Application"/><element name="id" nillable="true" type="xsd:string"/></sequence></complexType><complexType name="CertRevokedException"><complexContent><extension base="tns1:CertException"><sequence/></extension></complexContent></complexType><complexType name="AuthException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="PasswordExpiredException"><complexContent><extension base="tns1:AuthException"><sequence/></extension></complexContent></complexType><complexType name="InactiveAccountException"><complexContent><extension base="tns1:AuthException"><sequence/></extension></complexContent></complexType><complexType name="IdProviderNotFoundException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="BadPasswordException"><complexContent><extension base="tns1:AuthException"><sequence/></extension></complexContent></complexType><complexType name="MalformedUsernameException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="BadIdentitaException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="NoSuchActorException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType><complexType name="MalformedIdTokenException"><complexContent><extension base="tns1:UserException"><sequence/></extension></complexContent></complexType></schema><schema targetNamespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" xmlns="http://www.w3.org/2001/XMLSchema"><import namespace="http://schemas.xmlsoap.org/soap/encoding/"/><complexType name="ArrayOf_tns1_UseCase"><complexContent><restriction base="soapenc:Array"><attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:UseCase[]"/></restriction></complexContent></complexType><complexType name="ArrayOf_tns1_Actor"><complexContent><restriction base="soapenc:Array"><attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:Actor[]"/></restriction></complexContent></complexType><complexType name="ArrayOf_tns1_Application"><complexContent><restriction base="soapenc:Array"><attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:Application[]"/></restriction></complexContent></complexType></schema></wsdl:types>
+  <wsdl:message name="InternalException">
+    <wsdl:part name="fault" type="tns1:InternalException"/>
+  </wsdl:message>
+  <wsdl:message name="findUseCasesForApplicationResponse">
+    <wsdl:part name="findUseCasesForApplicationReturn" type="impl:ArrayOf_tns1_UseCase"/>
+  </wsdl:message>
+  <wsdl:message name="findActorsForUseCaseResponse">
+    <wsdl:part name="findActorsForUseCaseReturn" type="impl:ArrayOf_tns1_Actor"/>
+  </wsdl:message>
+  <wsdl:message name="findApplicationsRequest">
+  </wsdl:message>
+  <wsdl:message name="isUseCaseEsistenteRequest">
+    <wsdl:part name="in0" type="tns1:UseCase"/>
+  </wsdl:message>
+  <wsdl:message name="isUseCaseEsistenteResponse">
+    <wsdl:part name="isUseCaseEsistenteReturn" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="SystemException">
+    <wsdl:part name="fault" type="tns1:SystemException"/>
+  </wsdl:message>
+  <wsdl:message name="isApplicationEsistenteRequest">
+    <wsdl:part name="in0" type="tns1:Application"/>
+  </wsdl:message>
+  <wsdl:message name="isActorEsistenteRequest">
+    <wsdl:part name="in0" type="tns1:Actor"/>
+  </wsdl:message>
+  <wsdl:message name="findUseCasesForApplicationRequest">
+    <wsdl:part name="in0" type="tns1:Application"/>
+  </wsdl:message>
+  <wsdl:message name="isApplicationEsistenteResponse">
+    <wsdl:part name="isApplicationEsistenteReturn" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="findActorsForApplicationResponse">
+    <wsdl:part name="findActorsForApplicationReturn" type="impl:ArrayOf_tns1_Actor"/>
+  </wsdl:message>
+  <wsdl:message name="UnrecoverableException">
+    <wsdl:part name="fault" type="tns1:UnrecoverableException"/>
+  </wsdl:message>
+  <wsdl:message name="findActorsForApplicationRequest">
+    <wsdl:part name="in0" type="tns1:Application"/>
+  </wsdl:message>
+  <wsdl:message name="findActorsForUseCaseRequest">
+    <wsdl:part name="in0" type="tns1:UseCase"/>
+  </wsdl:message>
+  <wsdl:message name="isActorEsistenteResponse">
+    <wsdl:part name="isActorEsistenteReturn" type="xsd:boolean"/>
+  </wsdl:message>
+  <wsdl:message name="NoSuchApplicationException">
+    <wsdl:part name="fault" type="tns1:NoSuchApplicationException"/>
+  </wsdl:message>
+  <wsdl:message name="findApplicationsResponse">
+    <wsdl:part name="findApplicationsReturn" type="impl:ArrayOf_tns1_Application"/>
+  </wsdl:message>
+  <wsdl:message name="NoSuchUseCaseException">
+    <wsdl:part name="fault" type="tns1:NoSuchUseCaseException"/>
+  </wsdl:message>
+  <wsdl:portType name="PolicyEnforcerHelperService">
+    <wsdl:operation name="isApplicationEsistente" parameterOrder="in0">
+      <wsdl:input message="impl:isApplicationEsistenteRequest" name="isApplicationEsistenteRequest"/>
+      <wsdl:output message="impl:isApplicationEsistenteResponse" name="isApplicationEsistenteResponse"/>
+      <wsdl:fault message="impl:InternalException" name="InternalException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+    </wsdl:operation>
+    <wsdl:operation name="isUseCaseEsistente" parameterOrder="in0">
+      <wsdl:input message="impl:isUseCaseEsistenteRequest" name="isUseCaseEsistenteRequest"/>
+      <wsdl:output message="impl:isUseCaseEsistenteResponse" name="isUseCaseEsistenteResponse"/>
+      <wsdl:fault message="impl:InternalException" name="InternalException"/>
+      <wsdl:fault message="impl:NoSuchApplicationException" name="NoSuchApplicationException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+    </wsdl:operation>
+    <wsdl:operation name="findUseCasesForApplication" parameterOrder="in0">
+      <wsdl:input message="impl:findUseCasesForApplicationRequest" name="findUseCasesForApplicationRequest"/>
+      <wsdl:output message="impl:findUseCasesForApplicationResponse" name="findUseCasesForApplicationResponse"/>
+      <wsdl:fault message="impl:InternalException" name="InternalException"/>
+      <wsdl:fault message="impl:NoSuchApplicationException" name="NoSuchApplicationException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+    </wsdl:operation>
+    <wsdl:operation name="findActorsForApplication" parameterOrder="in0">
+      <wsdl:input message="impl:findActorsForApplicationRequest" name="findActorsForApplicationRequest"/>
+      <wsdl:output message="impl:findActorsForApplicationResponse" name="findActorsForApplicationResponse"/>
+      <wsdl:fault message="impl:InternalException" name="InternalException"/>
+      <wsdl:fault message="impl:NoSuchApplicationException" name="NoSuchApplicationException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+    </wsdl:operation>
+    <wsdl:operation name="findActorsForUseCase" parameterOrder="in0">
+      <wsdl:input message="impl:findActorsForUseCaseRequest" name="findActorsForUseCaseRequest"/>
+      <wsdl:output message="impl:findActorsForUseCaseResponse" name="findActorsForUseCaseResponse"/>
+      <wsdl:fault message="impl:InternalException" name="InternalException"/>
+      <wsdl:fault message="impl:NoSuchApplicationException" name="NoSuchApplicationException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+      <wsdl:fault message="impl:NoSuchUseCaseException" name="NoSuchUseCaseException"/>
+    </wsdl:operation>
+    <wsdl:operation name="findApplications">
+      <wsdl:input message="impl:findApplicationsRequest" name="findApplicationsRequest"/>
+      <wsdl:output message="impl:findApplicationsResponse" name="findApplicationsResponse"/>
+      <wsdl:fault message="impl:InternalException" name="InternalException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+    </wsdl:operation>
+    <wsdl:operation name="isActorEsistente" parameterOrder="in0">
+      <wsdl:input message="impl:isActorEsistenteRequest" name="isActorEsistenteRequest"/>
+      <wsdl:output message="impl:isActorEsistenteResponse" name="isActorEsistenteResponse"/>
+      <wsdl:fault message="impl:InternalException" name="InternalException"/>
+      <wsdl:fault message="impl:NoSuchApplicationException" name="NoSuchApplicationException"/>
+      <wsdl:fault message="impl:UnrecoverableException" name="UnrecoverableException"/>
+      <wsdl:fault message="impl:SystemException" name="SystemException"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PolicyEnforcerHelperSoapBinding" type="impl:PolicyEnforcerHelperService">
+    <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="isApplicationEsistente">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="isApplicationEsistenteRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://interfaces.policy.iride2.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="isApplicationEsistenteResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="InternalException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="isUseCaseEsistente">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="isUseCaseEsistenteRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://interfaces.policy.iride2.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="isUseCaseEsistenteResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="InternalException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="NoSuchApplicationException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="findUseCasesForApplication">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="findUseCasesForApplicationRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://interfaces.policy.iride2.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="findUseCasesForApplicationResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="InternalException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="NoSuchApplicationException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="findActorsForApplication">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="findActorsForApplicationRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://interfaces.policy.iride2.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="findActorsForApplicationResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="InternalException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="NoSuchApplicationException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="findActorsForUseCase">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="findActorsForUseCaseRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://interfaces.policy.iride2.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="findActorsForUseCaseResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="InternalException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="NoSuchApplicationException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="NoSuchUseCaseException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="findApplications">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="findApplicationsRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://interfaces.policy.iride2.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="findApplicationsResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="InternalException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="isActorEsistente">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="isActorEsistenteRequest">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://interfaces.policy.iride2.csi.it" use="encoded"/>
+      </wsdl:input>
+      <wsdl:output name="isActorEsistenteResponse">
+        <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:output>
+      <wsdl:fault name="InternalException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="NoSuchApplicationException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="UnrecoverableException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+      <wsdl:fault name="SystemException">
+        <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://tst-appweb.reteunitaria.piemonte.it/pep_wsfad_policy/services/PolicyEnforcerHelper" use="encoded"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PolicyEnforcerHelperServiceService">
+    <wsdl:port binding="impl:PolicyEnforcerHelperSoapBinding" name="PolicyEnforcerHelper">
+      <wsdlsoap:address location="http://tst-wfexp-vip01.csi.it/pep_wsfad_policy/services/PolicyEnforcerHelper"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,24 @@
+<div *ngIf="dialogVisible" class="modal alert-modal fade show" role="dialog" tabindex="-1" role="document"  aria-labelledby="confermaazione">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <svg  class="icon icon-danger">
+          <use href="./assets/svg/sprite.svg#it-help-circle"></use>
+        </svg>
+        <h5 class="modal-title" id="modal3Title">{{config.titolo}}</h5>
+        <button class="close pr-0" type="button" data-dismiss="modal" aria-label="Chiudi" (click)="close(false)"> <svg class="icon icon-dark">
+          <use href="./assets/svg/sprite.svg#it-close"></use>
+        </svg>
+      </button>
+      </div>
+      <div class="modal-body pt-2" [innerHTML]="config.messaggio">
+
+      </div>
+    <!-- <div>Tipo del messaggio: {{config.tipo}}</div> -->
+    <div class="modal-footer pt-4">
+      <button class="btn btn-outline-secondary btn-sm rounded-0" data-dismiss="modal" *ngIf="config.cancelVisible" (click)="close(false)">{{config.cancelLabel}}</button>
+      <button class="btn btn-danger btn-sm rounded-0" (click)="close(true)">{{config.okLabel}}</button>
+    </div>
+  </div>
+
+</div>

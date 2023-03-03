@@ -1,0 +1,71 @@
+.w-table thead {   
+    color: var(--secondary);
+    vertical-align: top;
+}
+
+.w-table thead tr th.titolo {
+    width:35%;
+}
+
+
+.w-table thead tr th.tipologia {
+    width:20%;
+}
+
+.w-table thead tr th.anno, .w-table thead tr th.data, .w-table thead tr th.firme {
+    width:15%;
+}
+
+.w-table thead tr th[data-order] {
+    cursor: pointer;
+}
+
+.w-table thead tr th .icon {
+    margin-left: -4px;
+    margin-top: -2px;
+}
+
+.w-table thead tr th[data-order="asc"] .icon{   
+    transform: rotateX(180deg);
+    margin-top: 0px;
+}
+
+.w-table__btn-icon {
+    padding: 8px 20px ;
+}
+
+.w-table tbody tr,
+.w-table tbody tr td {
+    background-color: white;
+    vertical-align: text-top;
+}
+
+
+.w-table tbody tr:hover td {
+    background-color: #e5f1fa;
+}
+
+fieldset .form-check [type=checkbox]+label::after {
+    width: 16px;
+    height: 16px;
+}
+
+fieldset .form-check [type=checkbox]:checked+label::before {
+    width: 6px;
+    height: 11px;
+}
+
+fieldset .form-check label {
+    line-height: normal;
+}
+
+
+::ng-deep .pagination .page-item.active a {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    pointer-events: none;
+}
+
+ fieldset legend {
+    line-height: inherit!important;
+}

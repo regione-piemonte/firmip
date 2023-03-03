@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<project name="moonsrv-buildCXFClientLibs" basedir=".." default="create-all">
+	
+	<property name="cxf-codegen"          value="build/cxf-codegen" />
+	<property name="cxf-codegen_jarsdist" value="conf/lib-tmp" />
+
+	<path id="classpath">
+		<fileset dir="conf/cxf-codegen/lib">
+			<include name="**/*.jar" />
+		</fileset>
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+	  <classpath>
+	    <fileset dir="conf/cxf-codegen/lib" includes="*.jar" />
+	  </classpath>
+	</taskdef>
+
+	<target name="create-all" depends="create-iride-base-client-cxf"
+		description="create ALL libs"/>
+
+	<!-- Metodo interno di creazione delle Classes JAVA sulla base del WSDL FILE sotto conf/wsdl -->
+	<target name="_WSDLToJava">
+		<echo message="Importing WSDL ${WSDLToJava.wsdl}" />
+		<echo message="Package ${WSDLToJava.pck}" />
+		<echo message="Outdir ${WSDLToJava.outdir}" />
+		<echo message="..." />
+		<java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+			<arg value="-p" />
+			<arg value="${WSDLToJava.pck}" />
+			<arg value="-d" />
+			<arg value="${WSDLToJava.outdir}" />
+			<arg value="conf/wsdl/${WSDLToJava.wsdl}" />
+			<!-- arg value="-autoNameResolution"  -->
+			<classpath>
+				<path refid="classpath" />
+			</classpath>
+		</java>
+	</target>
+	<!-- Metodo interno di creazione delle Classes JAVA sulla base del WSDL URL http -->
+	<target name="_WSDLToJavaByURL">
+		<echo message="Importing WSDL ${WSDLToJava.wsdl}" />
+		<echo message="Package ${WSDLToJava.pck}" />
+		<echo message="Outdir ${WSDLToJava.outdir}" />
+		<echo message="..." />
+		<java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+			<arg value="-p" />
+			<arg value="${WSDLToJava.pck}" />
+			<arg value="-d" />
+			<arg value="${WSDLToJava.outdir}" />
+			<arg value="${WSDLToJava.wsdl}" /> <!-- URL -->
+			<!-- arg value="-autoNameResolution"  -->
+			<classpath>
+				<path refid="classpath" />
+			</classpath>
+		</java>
+	</target>
+	
+	<!-- IRIDE -->
+	<target name="create-iride-base-client-cxf">
+		<property name="cxfjarclientname" value="iride-base-client-cxf-2.0.0.jar" />
+		<property name="subdir" value="iride-base-client" />
+		
+		<!-- Init mkdir e delete ${build}/iride-base-client -->
+		<echo message="Init mkdir e delete ${cxf-codegen}/${subdir} ..." />
+		<mkdir dir="${cxf-codegen}/${subdir}" /> <!-- do nothing if already exists -->
+    	<delete dir="${cxf-codegen}/${subdir}" />
+		<mkdir dir="${cxf-codegen}/${subdir}" />
+
+		<!-- Genera le Class java dei WSDL di iride-base-clientt -->
+		<antcall target="_WSDLToJava">
+			<param name="WSDLToJava.pck" value="it.csi.iride.base.cxfclient"/>
+			<param name="WSDLToJava.wsdl" value="iride/PolicyEnforcerBase.wsdl"/>
+			<param name="WSDLToJava.outdir" value="${cxf-codegen}/${subdir}/src"/>
+		</antcall>
+
+		<mkdir dir="${cxf-codegen}/${subdir}/classes" />
+		<javac srcdir="${cxf-codegen}/${subdir}/src" destdir="${cxf-codegen}/${subdir}/classes" optimize="true" debug="true" debuglevel="vars,lines,source" compiler="modern" encoding="windows-1252" fork="false">
+			<classpath refid="classpath" />
+		</javac>
+		<mkdir dir="${cxf-codegen}/${subdir}/archives" />
+		<jar jarfile="${cxf-codegen}/${subdir}/archives/${cxfjarclientname}" basedir="${cxf-codegen}/${subdir}/classes" includes="**/*.*" />
+		<copy file="${cxf-codegen}/${subdir}/archives/${cxfjarclientname}" todir="${cxf-codegen_jarsdist}" />
+	</target>
+
+</project>

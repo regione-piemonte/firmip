@@ -1,0 +1,14 @@
+<ng-http-loader
+  [debounceDelay]="1000"
+  [entryComponent]="CsiSpinnerComponent"
+  >
+</ng-http-loader>
+
+<firmipbo-w-dialog></firmipbo-w-dialog>
+<firmipbo-header></firmipbo-header>
+<main class="container-xl px-3 my-5">
+  <firmipbo-breadcrumbs></firmipbo-breadcrumbs>
+  <firmipbo-notification></firmipbo-notification>
+    <router-outlet></router-outlet>
+</main>
+<firmipbo-footer></firmipbo-footer>

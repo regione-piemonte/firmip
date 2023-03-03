@@ -1,0 +1,26 @@
+<ng-container *ngIf="view_notification">
+<ng-container  [ngSwitch]="notificationData?.type">
+    <div *ngSwitchCase="'success'" _ngcontent-lps-c18="" role="alert" aria-labelledby="not1b-title" id="ntSuccess" style="min-width:376px " class="my-4 d-block notification with-icon success">
+      <h5 _ngcontent-lps-c18="" id="ntSuccess-title">
+        <svg _ngcontent-lps-c18="" class="icon"><use _ngcontent-lps-c18="" href="./assets/svg/sprite.svg#it-check-circle" xlink:href="./assets/svg/sprite.svg#it-check-circle"></use></svg>
+        {{notificationData.message}}
+      </h5>
+    </div>
+
+    <div *ngSwitchCase="'error'" _ngcontent-lps-c18="" role="alert" aria-labelledby="not1b-title" id="ntError" style="min-width:376px " class="my-4 d-block notification with-icon error">
+      <h5 _ngcontent-lps-c18="" id="ntError-title">
+        <svg _ngcontent-lps-c18="" class="icon"><use _ngcontent-lps-c18="" href="./assets/svg/sprite.svg#it-check-circle" xlink:href="./assets/svg/sprite.svg#it-check-circle"></use></svg>
+        {{notificationData.message}}
+      </h5>
+      <p>{{notificationData.extraMessage}}</p>
+    </div>
+
+    <div *ngSwitchCase="'warning'" _ngcontent-lps-c18="" role="alert" aria-labelledby="not1b-title" id="ntWarning" style="min-width:376px " class="my-4 d-block notification with-icon warning">
+      <h5 _ngcontent-lps-c18="" id="ntWarning-title">
+        <svg _ngcontent-lps-c18="" class="icon"><use _ngcontent-lps-c18="" href="./assets/svg/sprite.svg#it-check-circle" xlink:href="./assets/svg/sprite.svg#it-check-circle"></use></svg>
+        {{notificationData.message}}
+      </h5>
+      <p>{{notificationData.extraMessage}}</p>
+    </div>
+</ng-container>
+</ng-container>

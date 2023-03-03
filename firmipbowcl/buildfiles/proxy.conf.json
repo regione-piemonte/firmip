@@ -1,0 +1,8 @@
+{
+    "/restfacade/be/*": {
+      //"target": "http://localhost:8080/firmip",
+      "target": "http://192.168.32.24:10110/firmip",
+      "secure": false,
+      "changeOrigin": true
+    }
+}

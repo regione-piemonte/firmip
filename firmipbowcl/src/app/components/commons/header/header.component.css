@@ -1,0 +1,7 @@
+.firm-header, .firm-header__button {
+    background-color: #C1392B
+}
+
+.firm-icon__exit {
+    transform: rotate(90deg);
+}

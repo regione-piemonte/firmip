@@ -1,0 +1,47 @@
+<!-- i dati che seguono dovranno essere dinamici -->
+<h1 class="mb-3 display-2">{{iniziativaSelezionata?.titolo}}</h1>
+
+<p class="mr-4 d-inline"><b>Tipologia:</b> {{iniziativaSelezionata?.tipo.descrizione}}</p>
+<ng-container *ngIf="iniziativaSelezionata?.data">
+  <p class="mr-4 d-inline"><b>Data:</b> {{iniziativaSelezionata.data | date: 'dd/MM/yyyy'}}</p>
+</ng-container>
+<ng-container *ngIf="iniziativaSelezionata?.anno">
+  <p class="mr-4 d-inline"><b>Anno:</b> {{iniziativaSelezionata.anno}}</p>
+</ng-container>
+<firmipbo-firme-ricerca
+  [iniziativa]="iniziativaSelezionata"
+  (submitRicercaFirme)="ricercaFirme($event)"
+></firmipbo-firme-ricerca>
+
+<firmipbo-firme-tabella [firme]="elencoFirme" (cmdEvent)="comandoTabella($event)"></firmipbo-firme-tabella>
+
+<div class="d-flex justify-content-end">
+  <button class="btn btn-outline-primary btn-sm btn-icon rounded-0 mr-4" (click)="modificaIniziative()">
+    <span>Modifica iniziativa</span>
+    <svg class="icon icon-primary icon ml-2" aria-hidden="true">
+      <use href='./assets/svg/sprite.svg#it-settings'></use>
+    </svg>
+  </button>
+
+  <button [disabled]="elencoFirme.length <= 0" class="btn btn-outline-primary btn-sm btn-icon rounded-0 mr-4" (click)="stampaFirme()">
+  <span>Stampa firme</span>
+  <svg class="icon icon-primary icon ml-2" aria-hidden="true">
+    <use href='./assets/svg/sprite.svg#it-print'></use>
+  </svg>
+</button>
+
+
+  <button [disabled]="elencoFirme.length <= 0" id="esporta" class="btn btn-outline-primary btn-sm btn-icon rounded-0 mr-4" (click)="esportaFirme()">
+    <span>Esporta firme</span>
+    <svg class="icon icon-primary icon ml-2" aria-hidden="true">
+      <use href='./assets/svg/sprite.svg#it-download'></use>
+    </svg>
+  </button>
+
+
+  <a class="btn btn-primary btn-sm btn-icon rounded-0" routerLink="/firme/INS/{{iniziativaSelezionata?.id}}/-1"> <span>Aggiungi firma</span>
+    <svg class="icon icon-white icon ml-2" aria-hidden="true">
+      <use href='./assets/svg/sprite.svg#it-plus'></use>
+    </svg>
+  </a>
+</div>

@@ -1,0 +1,8 @@
+.notification {
+    z-index: 99999!important;
+}
+
+.notification h5 {
+    line-height: 1.35em;
+    font-weight: 600;
+}

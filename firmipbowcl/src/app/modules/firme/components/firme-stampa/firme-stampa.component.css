@@ -1,0 +1,17 @@
+.breadcrumb a {
+    color: var(--primary);
+    font-weight: 400;
+}
+
+.breadcrumb a:hover {
+    color: var(--dark);
+}
+
+@media print {
+    .small {
+     font-size: 10pt!important;
+    }
+    .small-xs {
+        font-size:9pt!important;
+    }
+} 

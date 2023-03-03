@@ -1,0 +1,13 @@
+<nav class="breadcrumb-container" aria-label="Percorso di navigazione">
+  <ol class="breadcrumb">
+    <ng-container *ngFor="let b of b">
+      <li *ngIf="b.active; else elseBlock" class="{{b.class}}" aria-current="page">{{b.label}}</li>
+      <ng-template #elseBlock>
+        <li class="{{b.class}}"><a href="#" routerLink="{{b.url}}">{{b.label}}</a> <span class="separator" aria-hidden="true">/</span></li>
+      </ng-template>
+    </ng-container>
+  </ol>
+</nav>
+
+
+

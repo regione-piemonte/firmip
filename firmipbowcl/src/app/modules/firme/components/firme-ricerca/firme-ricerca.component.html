@@ -1,0 +1,93 @@
+<div id="collapseDiv2" class="collapse-div col-12 mt-5">
+  <div class="collapse-header" id="heading1a">
+    <button data-toggle="collapse" data-target="#collapse1a" aria-expanded="false" aria-controls="collapse1a">
+      <svg class="icon">
+        <use href="./assets/svg/sprite.svg#it-search" xlink:href="./assets/svg/sprite.svg#it-search"></use>
+      </svg>
+      <span class="ml-2">Ricerca firme</span>
+    </button>
+  </div>
+  <div id="collapse1a" class="collapse none" role="region" aria-labelledby="heading1a">
+    <form (ngSubmit)="submitForm()" [formGroup]="frmRicercaFirme">
+      <div class="collapse-body">
+        <div id="collapseDiv3">
+          <div class="collapse-header mb-4" id="heading1b">
+            <p class="small">Compilare uno o più campi e premere su "Effettua ricerca".
+              <br>
+              Utilizzare il tasto "Pulisci filtri" per cancellare tutti i filtri di ricerca.
+            </p>
+          </div>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="form-group col-12 col-md-4">
+                <label for="cognome">Cognome</label>
+                <input type="text" class="form-control" id="cognome" formControlName="cognome" name="cognome" >
+              </div>
+              <div class="form-group col-12 col-md-4">
+                <label for="nome">Nome</label>
+                <input type="text" class="form-control" formControlName="nome" id="nome">
+              </div>
+              <div class="form-group col-12 col-md-4">
+                <label for="indirizzo">Indirizzo</label>
+                <input type="text" class="form-control" formControlName="indirizzo" id="indirizzo">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group select-wrapper col-12 col-md-4">
+                <label for="selectComune">Comune</label>
+                <div class="">
+                  <ng-autocomplete id="selectComune" #selectComune
+                                   [data]="elencoComuni"
+                                   [searchKeyword]="searchKey"
+                                   [initialValue]=""
+                                   placeholder="Digita almeno 2 lettere"
+                                   [heading] = "'Denominazione Comune'"
+                                   (selected)="selectEvent($event)"
+                                   (inputChanged)="onChangeSearch($event)"
+                                   (inputCleared)="clearFilter()"
+                                   [itemTemplate]="itemTemplate"
+                                   [isLoading]="isLoadingComuni"
+                                   [minQueryLength]="1"
+                                   formControlName="comune"
+                                   [notFoundTemplate]="notFoundTemplate">
+                  </ng-autocomplete>
+                  <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nome"></a>
+                  </ng-template>
+                  <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="'Comune non trovato'"></div>
+                  </ng-template>
+                </div>
+                <!-- <small id="selectComuneDescription" class="form-text text-muted mt-2">Digita almeno 2 lettere</small> -->
+              </div>
+              <!-- Tipi documento -->
+              <div class="form-group select-wrapper col-12 col-md-4">
+                <label for="tipoDocumento">Tipo di documento</label>
+                <select id="tipoDocumento" title="Scegli un'opzione"
+                        class="form-control"
+                        formControlName="tipoDocumento" name="tipoDocumento">
+                  <option value="" title="Scegli un'opzione">Scegli un'opzione</option>
+                  <option *ngFor="let tdoc of elencoTipiDocumenti" [value]="tdoc.tipo">{{tdoc.nome}}</option>
+                </select>
+              </div>
+              <div class="form-group col-12 col-md-2">
+                <label for="documentNumber">Numero documento</label>
+                <input type="text" class="form-control" id="documentNumber" formControlName="numeroDocumento">
+              </div>
+              <div class="form-group col-12 col-md-2">
+                <label for="paperNumber">Numero foglio</label>
+                <input type="number" min="1" class="form-control" id="paperNumber" formControlName="numeroFoglio">
+              </div>
+            </div>
+            <div class="mt-4">
+              <button id="buttonRefresh" type="button" class="rounded-0 btn btn-outline-primary mr-4" onClick="window.location.reload();" [disabled]="disableReset">Reset</button>
+
+              <button id="buttonPulisci" type="button" class="rounded-0 btn btn-outline-primary mr-4" (click)="resetForm()">Pulisci filtri</button>
+
+              <button id="buttonRicerca" type="submit" class="rounded-0 btn btn-primary">Effettua ricerca</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>

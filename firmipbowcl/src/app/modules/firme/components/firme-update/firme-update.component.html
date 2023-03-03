@@ -1,0 +1,124 @@
+<h1 class="display-2">{{titoloIniziativa}}</h1>
+<h2 class="mb-5 display-3">{{tipoOperazione}}</h2>
+<form [formGroup]="frmUpdateFirme" (ngSubmit)="submitForm()">
+
+  <div class="row col-12 col-md-6">
+
+    <div class="form-group col-12 col-md-6">
+      <label for="numFoglio">Numero foglio<span class="text-danger">
+                *
+              </span></label>
+      <input type="number" min="1" class="form-control" id="numFoglio" formControlName="numFoglio">
+
+    </div>
+
+    <div class="form-group col-12 col-md-6">
+      <p class="small">Inserite attualmente n° persone: <b>{{countFirme}}</b><br>
+        Ultimo numero di foglio registrato: <b>{{maxNumFoglio}}</b></p>
+    </div>
+
+
+    <div class="form-group col-12 col-md-6">
+      <label for="cognome">Cognome <span class="text-danger">
+                *
+              </span></label>
+      <input style="text-transform:uppercase" type="text" class="form-control" id="cognome" formControlName="cognome"
+             name="cognome" (focus)="focusCognome">
+    </div>
+
+    <div class="form-group col-12 col-md-6">
+      <label for="nome">Nome <span class="text-danger">
+                *
+              </span></label>
+      <input style="text-transform:uppercase" type="text" class="form-control" formControlName="nome" id="nome"
+             (focusout)="onFocusNomeOut($event)"
+             required>
+    </div>
+
+    <div class="form-group col-12 col-md-6">
+      <label class="active" for="dataNascita">Data di nascita <span class="text-danger">
+                *
+              </span></label>
+      <input type="date" formControlName="dataNascita" id="dataNascita" name="dataNascita" min="1900-01-01" max="2099-12-31" (focusout)="dateControl()">
+      <div class="text-danger small" *ngIf="dataError">La data di nascita non può essere superiore alla data odierna o antecedente al 01/01/1900 </div>
+    </div>
+
+    <div class="form-group col-12 col-md-6">
+      <label for="luogoNascita">Luogo di nascita <span class="text-danger">
+                *
+              </span></label>
+      <input style="text-transform:uppercase" type="text" class="form-control" formControlName="luogoNascita"
+             id="luogoNascita">
+    </div>
+
+    <!-- comune -->
+    <div class="form-group select-wrapper col-12 col-md-12">
+      <label for="selectComune">Comune <span class="text-danger">
+                *
+              </span></label>
+      <div class="">
+        <ng-autocomplete id="selectComune" #selectComune
+                         [data]="elencoComuni"
+                         [searchKeyword]="searchKey"
+                         [initialValue]=""
+                         placeholder="Digita almeno 1 lettera"
+                         [heading]="'Denominazione Comune'"
+                         (selected)="selectEvent($event)"
+                         (inputChanged)="onChangeSearch($event)"
+                         (inputCleared)="clearFilter()"
+                         [itemTemplate]="itemTemplate"
+                         [isLoading]="isLoadingComuni"
+                         [minQueryLength]="1"
+                         formControlName="comune"
+                         [notFoundTemplate]="notFoundTemplate">
+        </ng-autocomplete>
+        <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.nome"></a>
+        </ng-template>
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="'Comune non trovato'"></div>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="form-group col-12 ">
+      <label for="indirizzo">Indirizzo</label>
+      <textarea rows="3" formControlName="indirizzo" id="indirizzo"></textarea>
+    </div>
+
+    <!-- Tipi documento -->
+    <div class="form-group select-wrapper col-12 col-md-6">
+      <label for="tipoDocumento">Tipo di documento</label>
+      <select id="tipoDocumento" title="Scegli un'opzione"
+              class="form-control"
+              formControlName="tipoDocumento" name="tipoDocumento">
+        <option value="" title="Scegli un'opzione">Scegli un'opzione</option>
+        <option *ngFor="let tdoc of elencoTipiDocumenti" [value]="tdoc.tipo">{{tdoc.nome}}</option>
+      </select>
+    </div>
+
+    <div class="form-group col-12 col-md-6">
+      <label for="numDocumento">Numero documento</label>
+      <input style="text-transform:uppercase" type="text" class="form-control" id="numDocumento" formControlName="numDocumento">
+    </div>
+
+    <!--div class="d-flex justify-content-end w-100">
+      <p class="small">Inserite attualmente n° persone: <b>{{countFirme}}</b><br>
+        Ultimo numero di foglio registrato: <b>{{maxNumFoglio}}</b></p>
+    </div-->
+
+
+    <div class="mt-5 col-12">
+      <a class="rounded-0 btn btn-outline-primary mr-4" routerLink="/firme/{{idIniziativa}}">Indietro</a>
+
+
+      <button id="buttonPulisci" type="button" class="rounded-0 btn btn-outline-primary mr-4" (click)="pulisciCampi()">
+        Pulisci campi
+      </button>
+      <button id="buttonRicerca" type="submit" class="rounded-0 btn btn-primary"
+              [disabled]="frmUpdateFirme.invalid || dataError">{{btnSubmitLabel}}</button>
+    </div>
+
+  </div>
+</form>
+

@@ -1,0 +1,52 @@
+<h1 class="mb-5 display-2">{{titoloForm}}</h1>
+<form [formGroup]="customerForm" (ngSubmit)="submitForm()">
+
+  <div class="mb-5" >
+  <p class="font-weight-semibold pl-2" style="font-size:.777rem;color:#435a70">Tipologia</p>
+  <div class="form-check" *ngFor="let t of elencoTipo">
+    <input type="radio" id="radio_{{t.id}}" value="{{t.id.toString()}}" name="type" formControlName="type" [(ngModel)]="myType" >
+    <label for="radio_{{t.id}}">{{t.descrizione.toUpperCase()}}</label>
+  </div>
+  <div class="text-danger small" *ngIf="(customerForm.get('type').errors?.['required'] && f?.type?.touched) || (!preSubmit && customerForm.get('type').errors?.['required'])">
+    La tipologia è richiesta
+  </div>
+</div>
+
+<div class="form-group col-12 col-md-4">
+  <label id="lbl-tit" for="titolo">Titolo</label>
+  <input type="text" formControlName="titolo" class="form-control" id="titolo">
+  <div class="text-danger small" *ngIf="(customerForm.get('titolo').errors?.['required'] && f?.titolo?.touched) || (!preSubmit && customerForm.get('titolo').errors?.['required'])">
+    Il titolo è richiesto
+  </div>
+</div>
+
+<div class="form-group col-12 col-md-4">
+  <label class="active" for="dateStandard">Data</label>
+  <input type="date" formControlName="data" id="dateStandard" name="dateStandard">
+
+  <div class="text-danger small" *ngIf="(customerForm.get('data').errors?.['required'] && f?.data?.touched) || (!preSubmit && customerForm.get('data').errors?.['required'])">
+    La data è richiesta
+  </div>
+
+</div>
+<div class="form-group col-12 col-md-4 ">
+  <label id="lbl-anno" for="anno">Anno</label>
+  <input type="number" formControlName="anno"  maxlength="4" step="1" inputmode="numeric" class="form-control" id="anno">
+  <div class="text-danger small" *ngIf="(customerForm.get('anno').errors?.['required'] && f?.anno?.touched) || (!preSubmit && customerForm.get('anno').errors?.['required'])">
+    L'anno è richiesto
+  </div>
+  <div class="text-danger small" *ngIf="f?.anno?.errors?.min && f?.anno?.touched">
+   Inserire un anno uguale o maggiore al 1999
+  </div>
+  <div class="text-danger small" *ngIf="f?.anno?.errors?.max && f?.anno?.touched">
+    Inserire un anno uguale o minore del 2999
+  </div>
+</div>
+
+  <div class="btn-example">
+    <button id="buttonBack" type="back" (click)="indietroBtn();" class="rounded-0 btn btn-outline-primary mr-4">Indietro</button>
+    <button id="buttonUpdate" type="submit" class="rounded-0 btn btn-primary">{{labelBtnAzione}}</button>
+  </div>
+</form>
+
+

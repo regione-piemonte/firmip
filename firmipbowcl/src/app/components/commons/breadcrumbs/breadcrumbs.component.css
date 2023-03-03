@@ -1,0 +1,8 @@
+.breadcrumb a {
+    color: var(--primary);
+    font-weight: 400;
+}
+
+.breadcrumb a:hover {
+    color: var(--dark);
+}

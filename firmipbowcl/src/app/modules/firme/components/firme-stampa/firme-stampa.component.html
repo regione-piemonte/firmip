@@ -1,0 +1,39 @@
+<main class="container-fluid px-2">
+  <h1 class="display-2">{{iniziativaSelezionata?.titolo}}</h1>
+  <p class="mr-4 d-inline"><b>Tipologia: </b>{{iniziativaSelezionata?.tipo.descrizione}}</p>
+  <ng-container *ngIf="iniziativaSelezionata?.data">
+    <p class="mr-4 d-inline"><b>Data:</b> {{iniziativaSelezionata.data | date: 'dd/MM/yyyy'}}</p>
+  </ng-container>
+  <ng-container *ngIf="iniziativaSelezionata?.anno">
+    <p class="mr-4 d-inline"><b>Anno:</b> {{iniziativaSelezionata.anno}}</p>
+  </ng-container>
+  <table class="table small mt-5">
+    <thead style="background-color: #F0F0F0;">
+      <tr>
+        <th class=" text-secondary p-2" scope="col">Cognome</th>
+        <th class=" text-secondary p-2" scope="col">Nome</th>
+        <th class=" text-secondary p-2" scope="col">Indirizzo</th>
+        <th class=" text-secondary p-2" scope="col">Comune</th>
+        <th class=" text-secondary p-2" scope="col">Tipo documento</th>
+        <th class=" text-secondary p-2" scope="col">Numero documento</th>
+        <th class=" text-secondary p-2" scope="col">Foglio n.</th>
+        <th class=" text-secondary p-2" scope="col">Luogo di nascita</th>
+        <th class=" text-secondary p-2" scope="col">Data di nascita</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let firma of elencoFirme">
+        <td>{{firma.cognome}}</td>
+        <td>{{firma.nome}}</td>
+        <td>{{firma.indirizzo}}</td>
+        <td>{{firma.comune?.nome}}
+          <ng-container *ngIf="firma.comune">({{firma.comune?.siglaProvincia}})</ng-container></td>
+        <td>{{firma.tipoDocumento}}</td>
+        <td>{{firma.numDocumento}}</td>
+        <td>{{firma.numFoglio}}</td>
+        <td>{{firma.luogoNascita}}</td>
+        <td>{{firma.dataNascita | date: "dd/MM/y" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>

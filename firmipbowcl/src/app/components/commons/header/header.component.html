@@ -1,0 +1,35 @@
+<header class="d-print-none text-white firm-header container-fluid py-3 px-0">
+  <div class="container-xl d-flex px-3 align-items-center justify-content-between">
+    <div class="d-flex align-items-center">
+      <!-- <a href="/" title="Vai alla homepage"> -->
+        <img src="./assets/img/logo-consiglio.png" alt="Logo del Consiglio Regionale del Piemonte" width="97px"
+             height="30px">
+        <!-- <span class="sr-only">Vai alla homepage</span> -->
+      <!-- </a> -->
+      <span class="h3 text-uppercase m-0 ml-3">Intranet CRP</span>
+    </div>
+
+    <ng-container *ngIf="loggedUser.nome !== ''">
+      <div class="dropdown">
+        <button class=" text-white firm-header__button dropdown-toggle btn btn-icon btn-full" id="dropdownMenuButton"
+                type="button" aria-haspopup="true" data-toggle="dropdown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+          <span class="rounded-icon">
+            <svg class="icon icon-secondary">
+              <use href="./assets/svg/sprite.svg#it-user"></use>
+            </svg>
+          </span>
+          <span class="d-none d-lg-block">{{loggedUser.nome}}&nbsp;{{loggedUser.cognome}}</span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li><a class="dropdown-item" routerLink="[]" (click)="logout()">
+            <svg class="firm-icon__exit icon icon-primary">
+              <use href="./assets/svg/sprite.svg#it-upload"></use>
+            </svg>
+            Esci
+          </a></li>
+        </ul>
+      </div>
+    </ng-container>
+  </div>
+</header>
