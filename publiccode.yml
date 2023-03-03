@@ -1,48 +1,56 @@
-publiccodeYmlVersion: "0.2" 
+# This repository adheres to the publiccode.yml standard by including this 
+# metadata file that makes public software easily discoverable.
+# More info at https://github.com/italia/publiccode.yml
 
-name: Firmip 
-url: https://github.com/regione-piemonte/firmip.git
-landingURL: https://github.com/regione-piemonte/firmip.git
-softwareVersion: "1.0" 
-releaseDate: "2022-06-21" 
-platforms: 
- - linux
-categories: 
- - flussi documentali e dematerializzazione
+publiccodeYmlVersion: '0.2'
+categories:
+  - digital-citizenship
+description:
+  it:
+    features:
+      - Gestione firme
+    genericName: Firme di iniziativa popolare
+    longDescription: |2
+       Il progetto “Firme di iniziativa popolare” ha come obiettivo la gestione ed il controllo delle firme  raccolte relative alle iniziative popolari quali referendum e proposte di legge. Essendo l'approvazione dei referendum e delle proposte di legge vincolata alla raccolta di un numero minimo di firme, è sorta la necessità di gestire i nominativi delle persone che appongono la propria firma sui fogli raccolte. Lo scopo principale dell'applicazione è quello di rilevare se una stessa persona ha apposto due o più firme per la stessa iniziativa. 
+    shortDescription: Gestione delle firme di iniziativa popolare
+developmentStatus: stable
+it:
+  conforme:
+    gdpr: true
+    lineeGuidaDesign: true
+    misureMinimeSicurezza: true
+    modelloInteroperabilita: true
+  countryExtensionVersion: '0.2'
+  piattaforme:
+    anpr: false
+    cie: false
+    pagopa: false
+    spid: false
+  riuso:
+    codiceIPA: cr_piem
+landingURL: 'https://github.com/regione-piemonte/firmip'
+legal:
+  authorsFile: |-
+    https://raw.githubusercontent.com/regione-piemonte/firmip/master/COPYRIGHTS.txt
+  license: EUPL-1.2
+  mainCopyrightOwner: Consiglio Regionale Piemonte
+  repoOwner: Consiglio Regionale Piemonte
+localisation:
+  availableLanguages:
+    - it
+  localisationReady: false
+maintenance:
+  contacts:
+    - email: mariaclara.peira@csi.it
+      name: Maria Clara Peira
+  type: internal
+name: FIRMIP
+platforms:
+  - linux
+  - web
+releaseDate: '2022-06-21'
+softwareType: standalone/web
+softwareVersion: '1.0'
+url: 'https://github.com/regione-piemonte/firmip.git'
 usedBy:
- - Consiglio Regionale Piemonte
-developmentStatus: development 
-softwareType: "web application"
-description: 
- it: 
- genericName: Firmip
- shortDescription: > 
- Il progetto “Firme di iniziativa popolare” ha come obiettivo la gestione ed il controllo delle firme 
- raccolte relative alle iniziative popolari quali referendum e proposte di legge.
- Essendo l'approvazione dei referendum e delle proposte di legge vincolata alla raccolta di un numero minimo di firme, è sorta la necessità di gestire i nominativi delle persone che appongono la propria firma sui fogli raccolte.
- Lo scopo principale dell'applicazione è quello di rilevare se una stessa persona ha apposto due o più firme per la stessa iniziativa.
-legal: 
- license: EUPL-1.2
- authorsFile: COPYRIGHTS.txt
-maintenance: 
- type: "none"
- 
-localisation: 
- localisationReady: no
- availableLanguages: 
- - it
-
-it: 
- countryExtensionVersion: "0.2" 
- conforme:
- lineeGuidaDesign: yes
- modelloInteroperabilita: yes
- misureMinimeSicurezza: yes
- gdpr: yes
- piattaforme:
-  spid: no
-  cie: no
-  anpr: no
-  pagopa: no
- riuso: 
-  codiceIPA: cr_piem
+  - Consiglio Regionale Piemonte
