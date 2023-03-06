@@ -27,7 +27,7 @@ it:
     pagopa: false
     spid: false
   riuso:
-    codiceIPA: cr_piem
+    codiceIPA: r_piemon
 landingURL: 'https://github.com/regione-piemonte/firmip'
 legal:
   authorsFile: |-
